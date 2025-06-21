@@ -23,7 +23,7 @@ const fs = global.nodemodule["fs-extra"];
   var know = hi[Math.floor(Math.random() * hi.length)];
   var link = [
 
-  "https://drive.google.com/uc?id=17Siy3m5zeLkokRoCyWwczk6zu526JUPF",];
+  "","","","","","","","","","","","","","","","","","","",];
      var callback = () => api.sendMessage({body:`「 ${know} 」`,attachment: fs.createReadStream(__dirname + "/cache/15.mp4")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/15.mp4"));    
       return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname+"/cache/15.mp4")).on("close",() => callback());
    };
