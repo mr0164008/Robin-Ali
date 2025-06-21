@@ -1,46 +1,139 @@
-const axios = require("axios");
-const request = require("request");
-const fs = require("fs-extra");
-const moment = require("moment-timezone");
+module.exports.config = {
+	name: "admin2",
+	version: "1.0.5",
+	hasPermssion: 0,
+	credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
+	description: "Manage bot admin",
+	commandCategory: "config",
+	usages: "[list/add/remove] [userID]",
+    cooldowns: 5,
+    dependencies: {
+        "request":"",
+    "fs-extra":"",
+    "axios":""
+    }
+};
+
+module.exports.languages = {
+    "bn": {
+        "listAdmin": '[Admin] Danh sách toàn bộ người điều hành bot: \n\n%1',
+        "notHavePermssion": '[Admin] Bạn không đủ quyền hạn để có thể sử dụng chức năng "%1"',
+        "addedNewAdmin": '[Admin] Đã thêm %1 người dùng trở thành người điều hành bot:\n\n%2',
+        "removedAdmin": '[Admin] Đã gỡ bỏ %1 người điều hành bot:\n\n%2'
+    },
+    "en": {
+        "listAdmin": '[Admin] Admin list: \n\n%1',
+        "notHavePermssion": '[Admin] You have no permission to use "%1"',
+        "addedNewAdmin": '[Admin] Added %1 Admin :\n\n%2',
+        "removedAdmin": '[Admin] Remove %1 Admin:\n\n%2'
+    }
+}
+
+module.exports.run = async function ({ api, event, args, Users, permssion, getText }) {
+    const content = args.slice(1, args.length);
+    const { threadID, messageID, mentions } = event;
+    const { configPath } = global.client;
+    const { ADMINBOT } = global.config;
+    const { userName } = global.data;
+    const { writeFileSync } = global.nodemodule["fs-extra"];
+    const mention = Object.keys(mentions);
+
+    delete require.cache[require.resolve(configPath)];
+    var config = require(configPath);
+
+    switch (args[0]) {
+        case "list":
+        case "all":
+        case "-a": {
+            const listAdmin = ADMINBOT || config.ADMINBOT || [];
+            var msg = [];
+
+            for (const idAdmin of listAdmin) {
+                if (parseInt(idAdmin)) {
+                    const name = await Users.getNameUser(idAdmin);
+                    msg.push(`- ${name}(https://facebook.com/${idAdmin})`);
+                }
+            }
+
+            return api.sendMessage(getText("listAdmin", msg.join("\n")), threadID, messageID);
+        }
+
+        case "add": {
+            if (permssion != 2) return api.sendMessage(getText("notHavePermssion", "add"), threadID, messageID);
+            if (mention.length != 0 && isNaN(content[0])) {
+                var listAdd = [];
+
+                for (const id of mention) {
+                    ADMINBOT.push(id);
+                    config.ADMINBOT.push(id);
+                    listAdd.push(`[ ${id} ] » ${event.mentions[id]}`);
+                };
+
+                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+                return api.sendMessage(getText("addedNewAdmin", mention.length, listAdd.join("\n").replace(/\@/g, "")), threadID, messageID);
+            }
+            else if (content.length != 0 && !isNaN(content[0])) {
+                ADMINBOT.push(content[0]);
+                config.ADMINBOT.push(content[0]);
+                const name = await Users.getNameUser(content[0]);
+                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+                return api.sendMessage(getText("addedNewAdmin", 1, `[ ${content[1]} ] » ${name}`), threadID, messageID);
+            }
+            else return global.utils.throwError(this.config.name, threadID, messageID);
+        }
+
+        case "remove":
+        case "rm":
+        case "delete": {
+            if (permssion != 2) return api.sendMessage(getText("notHavePermssion", "delete"), threadID, messageID);
+            if (mentions.length != 0 && isNaN(content[0])) {
+                const mention = Object.keys(mentions);
+                var listAdd = [];
+
+                for (const id of mention) {
+                    const index = config.ADMINBOT.findIndex(item => item == id);
+                    ADMINBOT.splice(index, 1);
+                    config.ADMINBOT.splice(index, 1);
+                    listAdd.push(`[ ${id} ] » ${event.mentions[id]}`);
+                };
+
+                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+                return api.sendMessage(getText("removedAdmin", mention.length, listAdd.join("\n").replace(/\@/g, "")), threadID, messageID);
+            }
+            else if (content.length != 0 && !isNaN(content[0])) {
+                const index = config.ADMINBOT.findIndex(item => item.toString() == content[0]);
+                ADMINBOT.splice(index, 1);
+                config.ADMINBOT.splice(index, 1);
+                const name = await Users.getNameUser(content[0]);
+                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+                return api.sendMessage(getText("removedAdmin", 1, `[ ${content[0]} ] » ${name}`), threadID, messageID);
+            }
+            else global.utils.throwError(this.config.name, threadID, messageID);
+        }
+
+        default: {
+            return global.utils.throwError(this.config.name, threadID, messageID);
+        }
+    };
+}
 
 module.exports.config = {
-    name: "admin",
-    version: "1.0.0",
-    hasPermssion: 0,
-    credits: "ULLASH", //don't change my credit 
-    description: "Show Owner Info",
-    commandCategory: "info",
-    usages: "",
-    cooldowns: 5
+	name: "admin",
+	version: "1.0.0",
+	hasPermssion: 0,
+	credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
+	description: "BoRayhaator information",
+	commandCategory: "info",
+	cooldowns: 1
 };
 
-module.exports.run = async function({ api, event }) {
-    var time = moment().tz("Asia/Dhaka").format("DD/MM/YYYY hh:mm:ss A");
-
-    var callback = () => api.sendMessage({
-        body: `
-┏━━━━━━━━━━━━━━━━━━━━━┓
-┃      🌟 𝗢𝗪𝗡𝗘𝗥 𝗜𝗡𝗙𝗢 🌟      
-┣━━━━━━━━━━━━━━━━━━━━━┫
-┃ 👤 𝐍𝐚𝐦𝐞      : 𝐮 𝐥 𝐥 𝐚 𝐬 𝐡 ッ
-┃ 🚹 𝐆𝐞𝐧𝐝𝐞𝐫    : 𝐌𝐚𝐥𝐞
-┃ ❤️ 𝐑𝐞𝐥𝐚𝐭𝐢𝐨𝐧  : 𝐈𝐧 𝐂𝐨𝐦𝐩𝐥𝐢𝐜𝐚𝐭𝐞𝐝
-┃ 🎂 𝐀𝐠𝐞       : 21
-┃ 🕌 𝐑𝐞𝐥𝐢𝐠𝐢𝐨𝐧  : 𝐈𝐬𝐥𝐚𝐦
-┃ 🏫 𝐄𝐝𝐮𝐜𝐚𝐭𝐢𝐨𝐧 : 𝐝𝐢𝐩𝐥𝐨𝐦𝐚 𝐢𝐧 𝐀𝐠𝐫𝐢𝐜𝐮𝐥𝐭𝐮𝐫𝐞
-┃ 🏡 𝐀𝐝𝐝𝐫𝐞𝐬𝐬  : 𝐍𝐨𝐚𝐤𝐡𝐚𝐥𝐢, 𝐁𝐚𝐧𝐠𝐥𝐚𝐝𝐞𝐬𝐡
-┣━━━━━━━━━━━━━━━━━━━━━┫
-┃ 🎭 𝐓𝐢𝐤𝐭𝐨𝐤  : ullash01
-┃ 📢 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐦 : https://t.me/The_morning_star71
-┃ 🌐 𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐤 : https://www.facebook.com/profile.php?id=100015168369582
-┣━━━━━━━━━━━━━━━━━━━━━┫
-┃ 🕒 𝐔𝐩𝐝𝐚𝐭𝐞𝐝 𝐓𝐢𝐦𝐞:  ${time}
-┗━━━━━━━━━━━━━━━━━━━━━┛
-        `,
-        attachment: fs.createReadStream(__dirname + "/cache/1.png")
-    }, event.threadID, () => fs.unlinkSync(__dirname + "/cache/1.png"));
-  
-    return request(encodeURI(`https://graph.facebook.com/100000478146113/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`))
-        .pipe(fs.createWriteStream(__dirname + '/cache/1.png'))
-        .on('close', () => callback());
-};
+module.exports.run = ({ event, api }) => api.sendMessage(`DO NOT TRUST THE BOT OPERATOR
+--------------------------------------------
+FACEBOOK : Robin Ali
+GENDER : Male
+Age : 17
+Relationship : Single
+Work : Student
+FACEBOOK LINK :https://www.facebook.com/robin.whoisme
+TELEGRAM : বাল ছাল চালাই না
+Mail : Mr5442135@gmail.com`, event.threadID, event.messageID)
