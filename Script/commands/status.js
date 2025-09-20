@@ -1,37 +1,55 @@
+/** I am doing this coding with a lot of difficulty, please don't post it yourself¯\_(ツ)_/¯ **/
 module.exports.config = {
-  name: "status",
-  version: "1.0.0",
-  hasPermssion: 0,
-  credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
-  description: "log",
-  commandCategory: "System",
-  usages: "",
-  cooldowns: 3,
-  denpendencies: {
-  }
+ name: "Statusvideo",
+ version: "1.0.0",
+ hasPermssion: 0,
+ credits: "CYBER-SUJON",
+ description: "sVEDIO",
+ commandCategory: "Hình ảnh",
+ usages: "statusvedio",
+ cooldowns: 5,
+ dependencies: {
+ "request":"",
+ "fs-extra":"",
+ "axios":""
+ }
 };
 
-module.exports.run = async function ({ api, event, Threads, getText }) {
-  const fs = global.nodemodule["fs-extra"];
-  var { threadID, messageID, senderID } = event;
-  //if (senderID == global.data.botID) return;
+module.exports.run = async({api,event,args,client,Users,Threads,__GLOBAL,Currencies}) => {
+const axios = global.nodemodule["axios"];
+const request = global.nodemodule["request"];
+const fs = global.nodemodule["fs-extra"];
+ var hi = ["----"];
+ var know = hi[Math.floor(Math.random() * hi.length)];
+ var link = [
 
-  var dataThread = (await Threads.getData(threadID));
-  var data = dataThread.data;
-  //console.log(data)
-  //var prefix = data.PREFIX;
-  var rankup = data.rankup;
-  var resend = data.resend;
-  var log = data.log;
-  var tagadmin = data.tagadmin;
-  var guard = data.guard;
-  var antiout = data.antiout;
-  //prefix == null ? rankup = `!` : rankup = `${prefix}`;
-  log == null ? log = `true` : log = `${log}`;
-  rankup == null ? rankup = `false` : rankup = `${rankup}`;
-  resend == null ? resend = `false` : resend = `${resend}`;
-  tagadmin == null ? tagadmin = `true` : tagadmin = `${tagadmin}`;
-  guard == null ? guard = `true` : guard = `${guard}`;
-  antiout == null ? antiout = `true` : antiout = `${antiout}`;
-return api.sendMessage(`ᅠᅠ☣️Table ☣️ \n\n\n🍄────•🦋• ────🍄\n❯ 🍉 Log: ${log}\n❯ 🍇 Rankup: ${rankup}\n❯ 🍓 Resend: ${resend}\n❯ 🥕 Tag admin: ${tagadmin}\n❯ 🍑 Antirobbery ${guard}\n❯ 🍒 Antiout: ${antiout}\n🍄────•🦋• ────🍄`, threadID, messageID);
-}
+ "https://drive.google.com/uc?id=1SJwyugnDdPg5S6Rsp_AGN0k89M8kphc-",
+ "https://drive.google.com/uc?id=1SkhEpeTyws-642io1eSdtQNcjKcQW-YI",
+ "https://drive.google.com/uc?id=1Sl2tlQsCXWt0ftfgoPRzbbCOgeZumBCb",
+ "https://drive.google.com/uc?id=1SWjSricVE9om1YIgYHxe6rIB7jsniVYO",
+ "https://drive.google.com/uc?id=1S5BJF6EP8P5sHxGV6ZZQD9MGS0mLPHId",
+ "https://drive.google.com/uc?id=1RotdZFn6GM1mgN_J7-e-owE5PxZvPXDS",
+ "https://drive.google.com/uc?id=1SaEMUvRg3MxeDv8sM0qpVSmzV_wlTolK",
+ "https://drive.google.com/uc?id=1SWQWgcSfy12lRtc-Q0da7KMLrfYTLyBS",
+ "https://drive.google.com/uc?id=1SfmyXKoZ88VmNgLGa4voGWJ-7AVFUuRv",
+ "https://drive.google.com/uc?id=1RtNXhFEpO2PItJ0D4vt9ZI_kx-8hFvds",
+ "https://drive.google.com/uc?id=1SFifqTR8h8ihvD9n1K3x8SYsX0tPS3vK",
+ "https://drive.google.com/uc?id=1SZvneFa5km4IF2djocrNt1jE9ioobZth",
+ "https://drive.google.com/uc?id=1ShI3tdH8DFu_rB9uhDrfCCYbvm1gZqqE",
+ "https://drive.google.com/uc?id=1S7RLmTw321iDt6m_NdP4KjWYPbALrkXT",
+ "https://drive.google.com/uc?id=1S1nr6cQkYNvd36u61Jg2ND2xbqj1Uyww",
+ "https://drive.google.com/uc?id=1S5m4j-T_sQo7EaOhkF2FGcY8Vin2Gkj8",
+ "https://drive.google.com/uc?id=1S42Xq1rBUX1gaXb18hkjEyOCTLk62cHc",
+ "https://drive.google.com/uc?id=1ShtQRmVNElLrdGEMjVIVYhMJCGuPLnWn",
+ "https://drive.google.com/uc?id=1Slw7RWMMNlL80EqtTgoxxC6ZvswQE5YK",
+ "https://drive.google.com/uc?id=1SpJVnzc6WY0OwOQw7J4h8RnUG6teHs1c",
+ "https://drive.google.com/uc?id=1SZ8BJ2f_1R0iqJqRfQ9b301XsxBSum4R",
+ "https://drive.google.com/uc?id=1SAuiAI8WXKAhqaTAoeF_W40SwrKjJvkU",
+
+"https://drive.google.com/uc?id=1S5Y8Ir-URLU6XlxH8ZxSj4QIiY0NXPAD",
+
+"https://drive.google.com/uc?id=1Sb1WDoZAwSEX7_uQlKKXFSI2yDi0DX58",
+];
+ var callback = () => api.sendMessage({body:`「 ${know} 」`,attachment: fs.createReadStream(__dirname + "/cache/15.mp4")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/15.mp4")); 
+ return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname+"/cache/15.mp4")).on("close",() => callback());
+ };
