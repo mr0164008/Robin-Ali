@@ -29,9 +29,11 @@ const data = await alldown(content);
  fs.writeFileSync(__dirname + "/cache/auto.mp4", Buffer.from(video, "utf-8"))
 
  return api.sendMessage({
- body: `🔥🚀 𝗜𝘀𝗹𝗮𝗺𝗶𝗰𝗸 𝗰𝗵𝗮𝘁 𝗯𝗼𝘁 | ᵁᴸᴸ⁴ˢᴴ 🔥💻 
-📥⚡𝗔𝘂𝘁𝗼 𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱𝗲𝗿⚡📂
-🎬 𝐄𝐧𝐣𝐨𝐲 𝐭𝐡𝐞 𝐕𝐢𝐝𝐞𝐨 🎀`,
+ body: `╭•❁🌷❁═══✦═══❁🌷❁•╮
+🎶 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗘 ✅
+💠 𝘽𝙮: ✪YesDaddyBot✪
+🎬 𝗘𝗡𝗝𝗢𝗬 𝗬𝗢𝗨𝗥 𝗩𝗜𝗗𝗘𝗢 🌸
+╰•❁🌷❁═══✦═══❁🌷❁•╯`,
  attachment: fs.createReadStream(__dirname + "/cache/auto.mp4")
 
  }, event.threadID, event.messageID);
