@@ -1,12 +1,12 @@
 /** Don't change credits bro i will fix¯\_(ツ)_/¯ **/
 module.exports.config = {
-  name: "18+", // মূল কমান্ড
+  name: "segs", // মূল কমান্ড
   version: "1.0.0",
   hasPermssion: 2,
   credits: "Mohammad Akash",
   description: "18+ VIDEOS",
   commandCategory: "video",
-  usages: "/18+",
+  usages: "/segs",
   cooldowns: 5,
   // aliases ড্রপ করা হয়েছে
   dependencies: {
