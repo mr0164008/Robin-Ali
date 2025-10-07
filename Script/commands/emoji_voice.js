@@ -60,13 +60,13 @@ const emojiAudioMap = {
  "🪓": "https://files.catbox.moe/rn7gqe.mp3",
  "🚬": "https://files.catbox.moe/vixb01.mp3",
  "🍉": "https://files.catbox.moe/x1ze8v.mp3",
- "": "https://files.catbox.moe/pxgnt9.mp3",
+ "🤨": "https://drive.google.com/uc?export=download&id=1rx4MQ4RGH5azffGRXvCn4-T9O_-wOyb1",
  "🎲": "https://files.catbox.moe/6ek32y.mp3",
  "🤱": "https://files.catbox.moe/qc8gsi.mp3",
  "👔": "https://files.catbox.moe/q8v9ys.mp3",
  "💵": "https://files.catbox.moe/d42g6z.mp3",
  "👰": "https://files.catbox.moe/waawu4.mp3",
- "": "",
+ "😺": "https://drive.google.com/uc?export=download&id=1PQR4WFG9-YtQbXs7V5kDoKh1pZgMbnxa",
  "💓": "https://files.catbox.moe/4kikih.mp3",
  "🤝": "https://files.catbox.moe/tqsb5w.mp3",
  "🍆": "https://files.catbox.moe/ayimg9.mp3",
@@ -74,9 +74,9 @@ const emojiAudioMap = {
  "🤳": "https://files.catbox.moe/yqepwf.mp3",
  "☎️": "https://files.catbox.moe/8lo8oe.mp3",
  "🧹": "https://files.catbox.moe/2xadpd.mp3",
- "": "",
+ "🫡": "https://drive.google.com/uc?export=download&id=10sujuTEviV52CfcqFrt2wQoHxfNufRzw",
  "🌹": "https://files.catbox.moe/pj2omq.mp3",
- "": "",
+ "😎": "https://drive.google.com/uc?export=download&id=1_Y6DIiOLAIuCwxOIS3W1zoP_lGG41O-s",
 
 };
 
@@ -125,3 +125,69 @@ module.exports.handleEvent = async ({ api, event }) => {
 };
 
 module.exports.run = () => {};
+https://drive.google.com/uc?export=download&id=1_Y6DIiOLAIuCwxOIS3W1zoP_O-s41O-s://files.catbox.moe/pxgnt9.mp3",
+ "🎲": "https://files.catbox.moe/6ek32y.mp3",
+ "🤱": "https://files.catbox.moe/qc8gsi.mp3",
+ "👔": "https://files.catbox.moe/q8v9ys.mp3",
+ "💵": "https://files.catbox.moe/d42g6z.mp3",
+ "👰": "https://files.catbox.moe/waawu4.mp3",
+ "😺": "https://drive.google.com/uc?export=download&id=1PQR4WFG9-YtQbXs7V5kDoKh1pZgMbnxa",
+ "💓": "https://files.catbox.moe/4kikih.mp3",
+ "🤝": "https://files.catbox.moe/tqsb5w.mp3",
+ "🍆": "https://files.catbox.moe/ayimg9.mp3",
+ "🧎‍♀️": "https://https://files.catbox.moe/t8z0oi.mp3",
+ "🤳": "https://files.catbox.moe/yqepwf.mp3",
+ "☎️": "https://files.catbox.moe/8lo8oe.mp3",
+ "🧹": "https://files.catbox.moe/2xadpd.mp3",
+ "🫡": "https://drive.google.com/uc?export=download&id=10sujuTEviV52CfcqFrt2wQoHxfNufRzw",
+ "🌹": "https://files.catbox.moe/pj2omq.mp3",
+ "😎": "https://drive.google.com/uc?export=download&id=1_Y6DIiOLAIuCwxOIS3W1zoP_lGG41O-s",
+
+};
+
+module.exports.handleEvent = async ({ api, event }) => {
+ const { threadID, messageID, body } = event;
+ if (!body || body.length > 2) return;
+
+ const emoji = body.trim();
+ const audioUrl = emojiAudioMap[emoji];
+ if (!audioUrl) return;
+
+ const cacheDir = path.join(__dirname, 'cache');
+ if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
+
+ const filePath = path.join(cacheDir, `${encodeURIComponent(emoji)}.mp3`);
+
+ try {
+ const response = await axios({
+ method: 'GET',
+ url: audioUrl,
+ responseType: 'stream'
+ });
+
+ const writer = fs.createWriteStream(filePath);
+ response.data.pipe(writer);
+
+ writer.on('finish', () => {
+ api.sendMessage({
+ attachment: fs.createReadStream(filePath)
+ }, threadID, () => {
+ fs.unlink(filePath, (err) => {
+ if (err) console.error("Error deleting file:", err);
+ });
+ }, messageID);
+ });
+
+ writer.on('error', (err) => {
+ console.error("Error writing file:", err);
+ api.sendMessage("ইমুজি দিয়ে লাভ নাই\nযাও মুড়ি খাও জান😘", threadID, messageID);
+ });
+
+ } catch (error) {
+ console.error("Error downloading audio:", error);
+ api.sendMessage("ইমুজি দিয়ে লাভ নাই\nযাও মুড়ি খাও জান😘", threadID, messageID);
+ }
+};
+
+module.exports.run = () => {};
+https://drive.google.com/uc?export=download&id=1_Y6DIiOLAIuCwxOIS3W1zoP_lGG41O-s
