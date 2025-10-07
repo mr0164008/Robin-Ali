@@ -60,13 +60,13 @@ const emojiAudioMap = {
  "🪓": "https://files.catbox.moe/rn7gqe.mp3",
  "🚬": "https://files.catbox.moe/vixb01.mp3",
  "🍉": "https://files.catbox.moe/x1ze8v.mp3",
- "🖕": "https://files.catbox.moe/pxgnt9.mp3",
+ "": "https://files.catbox.moe/pxgnt9.mp3",
  "🎲": "https://files.catbox.moe/6ek32y.mp3",
  "🤱": "https://files.catbox.moe/qc8gsi.mp3",
  "👔": "https://files.catbox.moe/q8v9ys.mp3",
  "💵": "https://files.catbox.moe/d42g6z.mp3",
  "👰": "https://files.catbox.moe/waawu4.mp3",
- "💩": "https://files.catbox.moe/xlr96x.mp3",
+ "": "",
  "💓": "https://files.catbox.moe/4kikih.mp3",
  "🤝": "https://files.catbox.moe/tqsb5w.mp3",
  "🍆": "https://files.catbox.moe/ayimg9.mp3",
@@ -74,9 +74,9 @@ const emojiAudioMap = {
  "🤳": "https://files.catbox.moe/yqepwf.mp3",
  "☎️": "https://files.catbox.moe/8lo8oe.mp3",
  "🧹": "https://files.catbox.moe/2xadpd.mp3",
- "💨": "https://files.catbox.moe/mcxcgz.mp3",
+ "": "",
  "🌹": "https://files.catbox.moe/pj2omq.mp3",
- "🤕": "https://files.catbox.moe/fjq9b5.mp3",
+ "": "",
 
 };
 
