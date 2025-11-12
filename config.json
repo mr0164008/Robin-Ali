@@ -117,8 +117,8 @@
         "timeToUnsend": 10
     },
     "sing": {
-        "API_KEY": "AIzaSyDdzsxzYZAoBCxF-TXQyVhd52_Tslu-FXU",
-        "YOUTUBE_API": "AIzaSyDdzsxzYZAoBCxF-TXQyVhd52_Tslu-FXU",
+        "API_KEY": "AIzaSyDuieyRpN-DE1SepGdNyrhMaews4NK-2kg",
+        "YOUTUBE_API": "AIzaSyDuieyRpN-DE1SepGdNyrhMaews4NK-2kg",
         "SOUNDCLOUD_API": "M4TSyS6eV0AcMynXkA3qQASGcOFQTWub"
     },
     "tiktok": {
@@ -169,16 +169,16 @@
         "APIKEY": ""
     },
     "video2": {
-        "YOUTUBE_API": "AIzaSyAE4wH3OSfPUjJZTJvByQfXhEuaBMXjzAA"
+        "YOUTUBE_API": "AIzaSyDuieyRpN-DE1SepGdNyrhMaews4NK-2kg"
     },
     "nganhang": {
         "key": "DUBFREE"
     },
     "video": {
-        "YOUTUBE_API": "AIzaSyAE4wH3OSfPUjJZTJvByQfXhEuaBMXjzAA"
+        "YOUTUBE_API": "AIzaSyDuieyRpN-DE1SepGdNyrhMaews4NK-2kg"
     },
     "music": {
-        "YOUTUBE_API": "AIzaSyAwzbcb-6QAzgZtl4qf3Z2GhQ3mqrbbMR8"
+        "YOUTUBE_API": "AIzaSyDuieyRpN-DE1SepGdNyrhMaews4NK-2kg"
     },
     "mine": {
         "APIKEY": ""
