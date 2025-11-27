@@ -3,13 +3,13 @@ const axios = require("axios");
 
 module.exports = {
   config: {
-    name: "hot2",
+    name: "🥵",
     version: "2.0.0",
     role: 0,
     author: "MOHAMMAD AKASH",
     description: "Random 18+ video sender 😈",
     category: "18+",
-    usages: "prefix hot",
+    usages: "prefix 🥵",
     cooldowns: 5
   },
 
